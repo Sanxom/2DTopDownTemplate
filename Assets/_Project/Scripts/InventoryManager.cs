@@ -9,6 +9,24 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private GameObject[] _itemPrefabs;
     [SerializeField] private ItemDictionary _itemDictionary;
 
+    public bool AddItem(GameObject itemPrefab)
+    {
+        foreach (Transform slotTransform in _inventoryPanel.transform)
+        {
+            Slot slot = slotTransform.GetComponent<Slot>();
+            if (slot != null && slot.currentItem == null)
+            {
+                GameObject newItem = Instantiate(itemPrefab, slotTransform);
+                newItem.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+                slot.currentItem = newItem;
+                return true;
+            }
+        }
+
+        print("Inventory is full.");
+        return false;
+    }
+
     public List<InventorySaveData> GetInventoryItems()
     {
         List<InventorySaveData> inventorySaveData = new();
