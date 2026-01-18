@@ -94,7 +94,11 @@ PrefabInstance:
       objectReference: {fileID: 299381899, guid: 2b98acffe46b66c479e03f09f9dd6a8d, type: 3}
     - target: {fileID: 3731646402828690868, guid: 6b351b6b746e75840959cfa4e99ac680, type: 3}
       propertyPath: m_SortingLayer
-      value: 0
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4714320393763267677, guid: 6b351b6b746e75840959cfa4e99ac680, type: 3}
+      propertyPath: itemName
+      value: Heart
       objectReference: {fileID: 0}
     - target: {fileID: 8228763814468682038, guid: 6b351b6b746e75840959cfa4e99ac680, type: 3}
       propertyPath: m_Sprite

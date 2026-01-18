@@ -7,6 +7,7 @@ public class SaveManager : MonoBehaviour
     [SerializeField] private GameObject _playerGO;
     [SerializeField] private CinemachineConfiner2D _confiner;
     [SerializeField] private InventoryManager _inventoryManager;
+    [SerializeField] private HotbarManager _hotbarManager;
 
     private string _saveLocation;
 
@@ -28,7 +29,8 @@ public class SaveManager : MonoBehaviour
         {
             playerPosition = _playerGO.transform.position,
             mapBoundary = _confiner.BoundingShape2D.gameObject.name,
-            inventorySaveData = _inventoryManager.GetInventoryItems()
+            inventorySaveData = _inventoryManager.GetInventoryItems(),
+            hotbarSaveData = _hotbarManager.GetHotbarItems(),
         };
 
         File.WriteAllText(_saveLocation, JsonUtility.ToJson(saveData));
@@ -39,11 +41,11 @@ public class SaveManager : MonoBehaviour
         if (File.Exists(_saveLocation))
         {
             SaveData saveData = JsonUtility.FromJson<SaveData>(File.ReadAllText(_saveLocation));
+
             _playerGO.transform.position = saveData.playerPosition;
-
             _confiner.BoundingShape2D = GameObject.Find(saveData.mapBoundary).GetComponent<BoxCollider2D>();
-
             _inventoryManager.SetInventoryItems(saveData.inventorySaveData);
+            _hotbarManager.SetHotbarItems(saveData.hotbarSaveData);
         }
         else
             SaveGame();
