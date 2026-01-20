@@ -14,8 +14,9 @@ GameObject:
   - component: {fileID: 4678064009553947170}
   - component: {fileID: 8228763814468682038}
   - component: {fileID: 2310743754735644609}
-  - component: {fileID: 2944587250480222641}
   - component: {fileID: 4714320393763267677}
+  - component: {fileID: 2944587250480222641}
+  - component: {fileID: 955021244108652119}
   m_Layer: 5
   m_Name: Item
   m_TagString: Untagged
@@ -187,18 +188,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &2944587250480222641
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8942196300329863693}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b91d69bf899b6cb488cd551b1a60b10a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InventoryItemDragHandler
 --- !u!114 &4714320393763267677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,3 +202,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Item
   itemID: 0
   itemName: Potion
+--- !u!114 &2944587250480222641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8942196300329863693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b91d69bf899b6cb488cd551b1a60b10a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InventoryItemDragHandler
+  _minDropDistance: 2
+  _maxDropDistance: 3
+--- !u!114 &955021244108652119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8942196300329863693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f33182de86befb4da058021cdcdc9b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BounceEffect
+  _bounceHeight: 0.3
+  _bounceDuration: 0.4
+  _bounceCount: 2

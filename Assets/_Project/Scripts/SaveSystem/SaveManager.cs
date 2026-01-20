@@ -20,6 +20,7 @@ public class SaveManager : MonoBehaviour
 
         _saveLocation = Path.Combine(Application.persistentDataPath, "saveData.json");
 
+        //DeleteSaveFile(); // TODO: Remove this to stop deleting save files on startup
         LoadGame();
     }
 
@@ -49,5 +50,11 @@ public class SaveManager : MonoBehaviour
         }
         else
             SaveGame();
+    }
+
+    public void DeleteSaveFile()
+    {
+        if (File.Exists(Path.Combine(Application.persistentDataPath, "saveData.json")))
+            File.Delete(Path.Combine(Application.persistentDataPath, "saveData.json"));
     }
 }

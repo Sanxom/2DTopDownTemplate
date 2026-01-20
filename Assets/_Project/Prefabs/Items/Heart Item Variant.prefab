@@ -8,6 +8,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 955021244108652119, guid: 6b351b6b746e75840959cfa4e99ac680, type: 3}
+      propertyPath: _bounceCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 955021244108652119, guid: 6b351b6b746e75840959cfa4e99ac680, type: 3}
+      propertyPath: _bounceHeight
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 955021244108652119, guid: 6b351b6b746e75840959cfa4e99ac680, type: 3}
+      propertyPath: _bounceDuration
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 3066390679571739970, guid: 6b351b6b746e75840959cfa4e99ac680, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
