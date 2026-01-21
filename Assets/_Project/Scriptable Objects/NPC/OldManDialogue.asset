@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89673ee2d5aec3a4f884884cf506d67b, type: 3}
+  m_Name: OldManDialogue
+  m_EditorClassIdentifier: Assembly-CSharp::NPCDialogue
+  npcName: Old Man
+  npcPortrait: {fileID: 21300000, guid: ca10a1a4f234a10449fc256bb6ff3900, type: 3}
+  dialogueLines:
+  - It's dangerous to go alone.
+  - I have nothing to give you...
+  autoProgressLines: 0100
+  typingSpeed: 0.05
+  voiceSound: {fileID: 8300000, guid: a6008edc16988d24e91a46e4dcd19e90, type: 3}
+  voicePitch: 1
+  autoProgressDelay: 1.5

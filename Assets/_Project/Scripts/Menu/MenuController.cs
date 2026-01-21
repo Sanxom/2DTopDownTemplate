@@ -23,11 +23,15 @@ public class MenuController : MonoBehaviour
 
     private void PlayerInputController_OnOpenMenuPerformed()
     {
+        if (!_menuPanel.activeSelf && PauseManager.IsGamePaused) return;
+
         _menuPanel.SetActive(true);
+        PauseManager.SetPause(_menuPanel.activeSelf);
     }
 
     private void PlayerInputController_OnCloseMenuPerformed()
     {
         _menuPanel.SetActive(false);
+        PauseManager.SetPause(_menuPanel.activeSelf);
     }
 }

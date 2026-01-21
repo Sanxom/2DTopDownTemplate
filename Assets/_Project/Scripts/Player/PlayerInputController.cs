@@ -8,6 +8,7 @@ public class PlayerInputController : MonoBehaviour
 
     public static event Action<InputAction.CallbackContext> OnMoveActionPressed;
     public static event Action<InputAction.CallbackContext> OnMoveActionCanceled;
+    public static event Action OnInteractActionPerformed;
     public static event Action OnOpenMenuPerformed;
     public static event Action OnCloseMenuPerformed;
 
@@ -28,6 +29,7 @@ public class PlayerInputController : MonoBehaviour
     private InputAction _moveAction;
     private InputAction _openMenuAction;
     private InputAction _closeMenuAction;
+    private InputAction _interactAction;
 
     #region Hotbar Input
     private InputAction _hotbarSlot1Action;
@@ -90,21 +92,31 @@ public class PlayerInputController : MonoBehaviour
         OnMoveActionCanceled?.Invoke(context);
     }
 
+    private void InteractAction_Performed(InputAction.CallbackContext context)
+    {
+        OnInteractActionPerformed?.Invoke();
+    }
+
     private void OpenMenuAction_Performed(InputAction.CallbackContext context)
     {
-        EnableUIDisablePlayer();
+        //EnableUIDisablePlayer(); // TODO: Uncomment this and the one in the function below to prevent player from taking in-game actions entirely if you want
+        _openMenuAction.Disable();
+        _closeMenuAction.Enable();
         OnOpenMenuPerformed?.Invoke();
     }
 
     private void CloseMenuAction_Performed(InputAction.CallbackContext context)
     {
-        EnablePlayerDisableUI();
+        //EnablePlayerDisableUI();
+        _closeMenuAction.Disable();
+        _openMenuAction.Enable();
         OnCloseMenuPerformed?.Invoke();
     }
 
     private void SetupInput()
     {
         _moveAction = _gameInput.Player.Move;
+        _interactAction = _gameInput.Player.Interact;
         _openMenuAction = _gameInput.Player.OpenMenu;
         _closeMenuAction = _gameInput.UI.CloseMenu;
 
@@ -174,6 +186,7 @@ public class PlayerInputController : MonoBehaviour
     {
         _moveAction.performed += MoveAction_Performed;
         _moveAction.canceled += MoveAction_Canceled;
+        _interactAction.performed += InteractAction_Performed;
         _openMenuAction.performed += OpenMenuAction_Performed;
         _closeMenuAction.performed += CloseMenuAction_Performed;
 
@@ -193,6 +206,7 @@ public class PlayerInputController : MonoBehaviour
     {
         _moveAction.performed -= MoveAction_Performed;
         _moveAction.canceled -= MoveAction_Canceled;
+        _interactAction.performed -= InteractAction_Performed;
         _openMenuAction.performed -= OpenMenuAction_Performed;
         _closeMenuAction.performed -= CloseMenuAction_Performed;
 
