@@ -3,15 +3,14 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] private float _moveSpeed;
+    [SerializeField] private float _footstepSoundSpeed = 0.5f;
+
     private const string IS_WALKING_ANIM_NAME = "isWalking";
     private const string INPUT_X_ANIM_NAME = "inputX";
     private const string INPUT_Y_ANIM_NAME = "inputY";
     private const string LAST_INPUT_X_ANIM_NAME = "lastInputX";
     private const string LAST_INPUT_Y_ANIM_NAME = "lastInputY";
-
-    [SerializeField] private float _moveSpeed;
-    [SerializeField] private float _footstepSoundSpeed = 0.5f;
-
     private const string FOOTSTEP_SOUND_FX_NAME = "Footstep";
 
     private Rigidbody2D _rb;

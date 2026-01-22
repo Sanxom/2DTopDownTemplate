@@ -15,10 +15,21 @@ MonoBehaviour:
   npcName: Old Man
   npcPortrait: {fileID: 21300000, guid: ca10a1a4f234a10449fc256bb6ff3900, type: 3}
   dialogueLines:
-  - It's dangerous to go alone.
-  - I have nothing to give you...
-  autoProgressLines: 0100
+  - Hello!
+  - Can you help me?
+  - Thanks!
+  - I knew I could count on you!
+  - Oh... Okay...
+  - Maybe next time...
+  autoProgressLines: 010101010101
+  endDialogueLines: 000000010001
   typingSpeed: 0.05
   voiceSound: {fileID: 8300000, guid: a6008edc16988d24e91a46e4dcd19e90, type: 3}
   voicePitch: 1
   autoProgressDelay: 1.5
+  dialogueChoicesArray:
+  - dialogueIndex: 1
+    choicesArray:
+    - Yes
+    - No
+    nextDialogueIndices: 0200000004000000

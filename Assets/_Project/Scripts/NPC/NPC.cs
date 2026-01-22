@@ -6,10 +6,6 @@ using UnityEngine.UI;
 public class NPC : MonoBehaviour, IInteractable
 {
     [SerializeField] private NPCDialogue _dialogueData;
-    [SerializeField] private GameObject _dialoguePanel;
-    [SerializeField] private TMP_Text _dialogueText;
-    [SerializeField] private TMP_Text _nameText;
-    [SerializeField] private Image _portraitImage;
 
     private WaitForSeconds _typingSpeed;
     private WaitForSeconds _autoProgressDelay;
@@ -42,45 +38,19 @@ public class NPC : MonoBehaviour, IInteractable
     {
         StopAllCoroutines();
         _isDialogueActive = false;
-        _dialogueText.SetText("");
-        _dialoguePanel.SetActive(false);
+        DialogueManager.Instance.SetDialogueText("");
+        DialogueManager.Instance.ShowDialogueUI(false);
         PauseManager.SetPause(false);
-    }
-
-    private void StartDialogue()
-    {
-        _isDialogueActive = true;
-        _dialogueIndex = 0;
-        _nameText.SetText(_dialogueData.npcName);
-        _portraitImage.sprite = _dialogueData.npcPortrait;
-        _dialoguePanel.SetActive(true);
-        PauseManager.SetPause(true);
-
-        StartCoroutine(TypeLineCoroutine());
-    }
-
-    private void NextLine()
-    {
-        if (_isTyping)
-        {
-            StopAllCoroutines();
-            _dialogueText.SetText(_dialogueData.dialogueLines[_dialogueIndex]);
-            _isTyping = false;
-        }
-        else if (++_dialogueIndex < _dialogueData.dialogueLines.Length)
-            StartCoroutine(TypeLineCoroutine());
-        else
-            EndDialogue();
     }
 
     private IEnumerator TypeLineCoroutine()
     {
         _isTyping = true;
-        _dialogueText.SetText("");
+        DialogueManager.Instance.SetDialogueText("");
 
         foreach (char letter in _dialogueData.dialogueLines[_dialogueIndex])
         {
-            _dialogueText.text += letter;
+            DialogueManager.Instance.SetDialogueText(DialogueManager.Instance.DialogueText.text += letter);
             SoundEffectManager.PlayVoice(_dialogueData.voiceSound, _dialogueData.voicePitch);
             yield return _typingSpeed;
         }
@@ -92,5 +62,70 @@ public class NPC : MonoBehaviour, IInteractable
             yield return _autoProgressDelay;
             NextLine();
         }
+    }
+
+    private void StartDialogue()
+    {
+        _isDialogueActive = true;
+        _dialogueIndex = 0;
+        DialogueManager.Instance.SetNPCInfo(_dialogueData.npcName, _dialogueData.npcPortrait);
+        DialogueManager.Instance.ShowDialogueUI(true);
+        PauseManager.SetPause(true);
+
+        DisplayCurrentLine();
+    }
+
+    private void NextLine()
+    {
+        if (_isTyping)
+        {
+            StopAllCoroutines();
+            DialogueManager.Instance.SetDialogueText(_dialogueData.dialogueLines[_dialogueIndex]);
+            _isTyping = false;
+        }
+
+        DialogueManager.Instance.ClearChoices();
+
+        if (_dialogueData.endDialogueLines.Length > _dialogueIndex && _dialogueData.endDialogueLines[_dialogueIndex])
+        {
+            EndDialogue();
+            return;
+        }
+        // Check if we have choices & display
+        foreach (DialogueChoice dialogueChoice in _dialogueData.dialogueChoicesArray)
+        {
+            if (dialogueChoice.dialogueIndex == _dialogueIndex)
+            {
+                DisplayChoices(dialogueChoice);
+                return;
+            }
+        }
+
+        if (++_dialogueIndex < _dialogueData.dialogueLines.Length)
+            DisplayCurrentLine();
+        else
+            EndDialogue();
+    }
+
+    private void DisplayChoices(DialogueChoice dialogueChoice)
+    {
+        for (int i = 0; i < dialogueChoice.choicesArray.Length; i++)
+        {
+            int nextIndex = dialogueChoice.nextDialogueIndices[i];
+            DialogueManager.Instance.CreateChoiceButton(dialogueChoice.choicesArray[i], () => ChooseOption(nextIndex));
+        }
+    }
+
+    private void ChooseOption(int nextIndex)
+    {
+        _dialogueIndex = nextIndex;
+        DialogueManager.Instance.ClearChoices();
+        DisplayCurrentLine();
+    }
+
+    private void DisplayCurrentLine()
+    {
+        StopAllCoroutines();
+        StartCoroutine(TypeLineCoroutine());
     }
 }

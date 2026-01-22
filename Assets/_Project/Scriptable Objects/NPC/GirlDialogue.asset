@@ -16,10 +16,24 @@ MonoBehaviour:
   npcPortrait: {fileID: 21300000, guid: c8358d451ff23ee449fda31162998681, type: 3}
   dialogueLines:
   - Hi!
-  - Sorry, I'm in a rush!
-  - Gotta' go!
-  autoProgressLines: 010101
+  - Do you need something?
+  - Well, I'm too busy. Bye!
+  - Are you sure?
+  - Okay! Bye!
+  autoProgressLines: 0101010101
+  endDialogueLines: 0000010001
   typingSpeed: 0.025
   voiceSound: {fileID: 8300000, guid: 9061de4abfb7ca0459b1d59d5c5048f2, type: 3}
   voicePitch: 1
   autoProgressDelay: 0.5
+  dialogueChoicesArray:
+  - dialogueIndex: 1
+    choicesArray:
+    - Yes
+    - No
+    nextDialogueIndices: 0200000003000000
+  - dialogueIndex: 3
+    choicesArray:
+    - Yes, I'm sure!
+    - I don't know...
+    nextDialogueIndices: 0400000002000000
